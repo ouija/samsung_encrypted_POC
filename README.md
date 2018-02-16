@@ -1,38 +1,46 @@
-# samsung_encrypted_POC
-A Proof of concept to pair and send commands to H and J series samsung tvs that use encrypted commmunication.  
+# Network Control Script for Samsung H and J Series TVs
 
+This forked version of https://github.com/eclair4151/samsung_encrypted_POC/ consists of a single script used for pairing and sending commands over a network to H and J series Samsung TVs that use encrypted communication.
 
-Current uses a 3rd party server using the smartview DLLs to figure out the encryption.    
+Currently uses a 3rd party server using the smartview DLLs to figure out the encryption.<br>
+*(source can be found here: https://github.com/eclair4151/SamsungEncryptServer)*  
 
-      
-         
-          
-Current Requirements:
+###### Requirements:
 
 * Python3
 * websocket-client
-* pyCryptodome
+* pyCryptodome (preferred) or pycrypto
 
-To run just run main   
 
-Once you have paired you may take the session id and key printed from running main, put it in the debug file and then run debug.py to send commands without pairing again
-<br>
-<br>
-<br>
+###### How to use:
+
+First, pair the script to your Samsung H/J Series TV by running the command:
+
+`python3 samsung.py pair <ip address of tv>`
+
+Once paired, the configuration is saved locally and you can then simply use this script by passing keycode commands as arguments (and can also send multiple keycodes at once!)
+
+*Example:* `python3 samsung.py KEY_CONTENTS KEY_LEFT KEY_ENTER`
+
+Use `--keycodes` or `-codes` to display a list of all available keycodes (press `q` to exit viewing keycodes)
+
+*Example:* `python3 samsung.py --keycodes`
+
+View the list of available keycode arguments [here](keycodes)
+
+
+###### Troubleshooting:  
+
 Note the the following TV Models are most likely incompatible for one reason or another
 
+*J4xxx, J50xx, J51xx, J52xx, J53xx, UNxxJ6200, J6201, J6203, J620D   
+H4xxx, H510x, H52xx, H53x3, H5403, H6003, H61x3, H6201, H6203, S9, S9C*  
 
-J4xxx, J50xx, J51xx, J52xx, J53xx, UNxxJ6200, J6201, J6203, J620D   
-H4xxx, H510x, H52xx, H53x3, H5403, H6003, H61x3, H6201, H6203, S9, S9C    
-<br>
-<br>
-Troubleshooting:    
-If the script seems to pair but wont send commands put   
-print(aesLib.generate_command('KEY_VOLDOWN'))   
-in line 46 of debug.py and see what it prints out     
-<br>
-if it prints out something like this:   
-5::/com.samsung.companion:{"name":"callCommon","args":[{"Session_Id":6,"body":"[F,%,�,�,�,x,�,,�, ,2,�,�,�,�,=,�,q,�,�,�,n,�,k,N,�,�,5,�,K,�,p,�,],�,z,V,�,�,�,�,b,�,�,x,�,q,.,",�,�,�,�,�,Y,u,�,:,7,i,�,),w,P,c,m,�,�,X,�,�,�,�,,',R,b,L,R,�,,�,/,�,$,�,,H,�,�,�,�,�,,B,�,Q,�,),�,�,�,A,,},�,�,�,�, ,j,�,n,a,o,�,.,L,�,�,E,�,1,�,�,�,�,�,�,�,,W,�,�,�,?,T,�,|,�,�,{,U,�,-,�,v,�,(,�,,Q,�,�,�,h,,Q,�,�,�,,},8,�,�,�,�,",�,�,�,�,U,
-,=]"}]}  
-<br>
-You are most likley running python2. This script requires python3 as of now
+Ensure you are using **Python3** and have **websocket-client** and either **pyCryptodome** or **pycrypto** modules installed
+
+*Example:* `pip3 install websocket-client pyCryptodome`
+
+
+###### Thanks: 
+
+A huge thank you to [eclair4151](https://github.com/eclair4151) for doing the majority of the work in regards to this script;  I just made it more user friendly, but he is responsible for the underlying code that made this all possible and deserves 100% of the credit!
