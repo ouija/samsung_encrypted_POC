@@ -9,6 +9,7 @@ Currently uses a 3rd party server using the smartview DLLs to figure out the enc
 
 * Python3
 * websocket-client
+* requests
 * pyCryptodome (preferred) or pycrypto
 
 
